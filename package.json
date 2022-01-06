@@ -1,0 +1,16 @@
+{
+  "name": "qot.bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm i && nodemon -e ts --exec 'tsc -p ./tsconfig.json && cd ./dist && node ./index.js'"
+  },
+  "author": "QOT",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "discord.js": "^13.5.0",
+    "redis": "^4.0.1"
+  }
+}
