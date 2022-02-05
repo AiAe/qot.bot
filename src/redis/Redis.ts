@@ -19,6 +19,9 @@ export default class Redis {
         const sub2 = r.duplicate();
         await sub2.connect();
 
+        const sub3 = r.duplicate();
+        await sub3.connect();
+
         await sub.subscribe('qot_database_discord', function (msg: any) {
             try {
                 const user = JSON.parse(msg);
@@ -30,9 +33,17 @@ export default class Redis {
 
         await sub2.subscribe('qot_database_discord_remove', function (msg: any) {
             try {
-                console.log(msg);
                 const user = JSON.parse(msg);
                 Bot.HandleRemovePlayer(user);
+            } catch (err) {
+                console.log('Failed to parse msg');
+            }
+        });
+
+        await sub3.subscribe('qot_database_discord_check', function (msg: any) {
+            try {
+                const user = JSON.parse(msg);
+                Bot.IsPlayerInServer(user);
             } catch (err) {
                 console.log('Failed to parse msg');
             }

@@ -68,6 +68,18 @@ export default class Bot {
         }
     }
 
+    public static async IsPlayerInServer(player: any): Promise<void> {
+        try {
+            const user = await Bot.GetUser(player.discord_id);
+
+            if (user == null)
+                return console.log(player);
+
+        }  catch (err) {
+            console.log(err);
+        }
+    }
+
     public static async GetGuild(): Promise<any> {
         try {
             return await Bot.Client.guilds.cache.get(config.bot.serverId);
