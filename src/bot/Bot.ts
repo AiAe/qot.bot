@@ -44,6 +44,30 @@ export default class Bot {
         }
     }
 
+    public static async HandleRemovePlayer(player: any): Promise<void> {
+        try {
+            const user = await Bot.GetUser(player.discord_id);
+
+            if (user == null)
+                return console.log(`${player.discord_id} is not in the server`);
+
+            const role = await Bot.GetRole();
+
+            if (!role)
+                return console.log(`Role not found`);
+
+            try {
+                await user.roles.remove(role);
+            } catch (err) {
+                console.log('Failed to remove player role, probably no permission');
+            }
+
+            console.log(`Successfully removed ${player.discord_id} from tournament!`);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     public static async GetGuild(): Promise<any> {
         try {
             return await Bot.Client.guilds.cache.get(config.bot.serverId);
